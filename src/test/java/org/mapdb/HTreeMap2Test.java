@@ -656,8 +656,7 @@ public class HTreeMap2Test {
         if i call expireAfterAccess ,everything seems ok.
 
     */
-    @Test(timeout=100000)
-    public void expireAfterWrite() throws InterruptedException {
+    @Test public void expireAfterWrite() throws InterruptedException {
         //NOTE this test has race condition and may fail under heavy load.
         //TODO increase timeout and move into integration tests.
 
@@ -678,17 +677,11 @@ public class HTreeMap2Test {
         for(int i=0;i<500;i++){
             m.put(i,i+1);
         }
-        //wait until size is 1000
-        while(m.size()!=1000){
-            Thread.sleep(10);
-        }
+        assertEquals(m.size(),1000);
 
         Thread.sleep(2000);
 
-        //wait until size is 1000
-        while(m.size()!=500){
-            Thread.sleep(10);
-        }
+        assertEquals(m.size(),500);
     }
 
 
